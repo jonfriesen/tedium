@@ -30,6 +30,7 @@ func (t *TenantWorker) AddWork(id string, fn func()) {
 	hold := make(chan struct{})
 
 	tw.Submit(func() {
+		defer close(hold)
 		func() {
 			// after completion execute channel
 			defer func() {
